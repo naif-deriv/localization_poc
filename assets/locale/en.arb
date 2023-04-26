@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "normalString": "This is just another normal string.",
+  "applicationTitle": "Testing Localization",
+  "dateNow": "{Date} is the current date.",
+  "stringWithVariables": "{foo} is foo and {bar} is bar."
+}
