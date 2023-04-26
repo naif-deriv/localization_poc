@@ -1,4 +1,5 @@
 import 'package:cool_locale/locale_entity/locale_entity.dart';
+import 'package:cool_locale/src/core/string_helpers.dart';
 
 class LocaleManager {
   /// singleton instane
@@ -10,11 +11,12 @@ class LocaleManager {
   /// factory constructor
   factory LocaleManager() => _instance;
 
-  String _currentLocale = 'en';
+  String _currentLocaleCode = 'en';
+  late LocaleEntity _currentLocale;
 
   final List<LocaleEntity> _locales = [];
 
-  final Map<String, int> _variableStrings = {};
+  final Map<String, List<String>> _keysAndArgs = {};
 
   void init({
     String locale = 'en',
@@ -27,13 +29,24 @@ class LocaleManager {
     }
   }
 
-  String get(String key, List<String>? args) {
-    /// TODO - return string from _locales
-    ///
-    return '';
+  String get(
+    String key,
+    List<String>? args,
+  ) {
+    if (!_keysAndArgs.containsKey(key)) {
+      final List<String> varsList = extractArgs(_currentLocale.getPhrase(key));
+      _keysAndArgs[key] = varsList;
+    }
+
+    /// Compare args and vars length.
+    if (_keysAndArgs[key] != args?.length) {
+      /// TODO - throw error.
+    }
   }
 
   void changeLocale(String newLocale) {
-    _currentLocale = newLocale;
+    _currentLocaleCode = newLocale;
+    _currentLocale = _locales
+        .firstWhere((LocaleEntity locale) => locale.locale == newLocale);
   }
 }

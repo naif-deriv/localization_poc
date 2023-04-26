@@ -28,10 +28,14 @@ extension MapX on Map {
   }) {
     if (this[key] is String) {
       if (args == null) {
+        /// TODO - if message has variables, throw error.
         return this[key].toString();
       } else {
+        print('args is not null');
         // The key is a string with parameters to be replaced.
         final listOfParamsToBeReplaced = extractString(str: this[key]);
+
+        /// convert string.
         return convertString(
             str: this[key],
             listOfParamsToBeReplaced: listOfParamsToBeReplaced,
@@ -41,4 +45,20 @@ extension MapX on Map {
       return key;
     }
   }
+}
+
+void main() {
+  Map<String, String> phrases = {
+    "welcomeMessage":
+        "Welcome, {name}, today is {date}, and your name is {name}, you have {currency}750, your birtday is on {date}.!",
+  };
+
+  print(phrases.get(
+    key: 'welcomeMessage',
+    args: [
+      'Sahani',
+      '01-June-2001',
+      '\$',
+    ],
+  ));
 }
