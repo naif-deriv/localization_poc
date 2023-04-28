@@ -11,6 +11,19 @@ class LocalizationException implements Exception {
 
 class InvalidArgumentsException extends LocalizationException {
   /// Initializes an instance of [InvalidArgumentsException].
-  InvalidArgumentsException(int expected, int recieved)
-      : super('Expected $expected arguments, but got $recieved.');
+  InvalidArgumentsException({
+    required List<String> expected,
+    required List<String>? recieved,
+  }) : super('Expected $expected arguments, but got $recieved.');
+}
+
+class InvalidKeyException extends LocalizationException {
+  /// Initializes an instance of [InvalidKeyException].
+  InvalidKeyException(String key) : super('Key $key does not exist.');
+}
+
+class LocaleManagerNotInitialized extends LocalizationException {
+  /// Initializes an instance of [LocaleManagerNotInitialized].
+  LocaleManagerNotInitialized()
+      : super('LocaleManager is not initialized properly.');
 }

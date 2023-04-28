@@ -1,3 +1,5 @@
+import 'package:cool_locale/core/localization_exception.dart';
+
 class LocaleEntity {
   /// en - es - du - etc.
   final String locale;
@@ -7,6 +9,16 @@ class LocaleEntity {
 
   LocaleEntity(this.locale, Map<String, String> data) : _data = data;
 
-  /// TODO - throw error when key does not exist.
-  String getPhrase(String key) => _data[key] ?? '';
+  String getPhrase(String key) =>
+      _data[key] ?? (throw InvalidKeyException(key));
+
+  @override
+  String toString() => '''
+    LocaleEntity:
+    locale: $locale, 
+    data: 
+    $_data
+
+    End of LocaleEntity.
+  ''';
 }
